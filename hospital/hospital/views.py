@@ -97,7 +97,9 @@ def patient_status_by_name(request, patient_name):
     serializer = PatientSerializer(patient)
     return Response(serializer.data)
 
-from django.db.models import Max
+from django.db.models import Max,F
+
+
 
 @api_view(['GET'])
 def patient_visits_details(request, patient_name):
@@ -105,24 +107,25 @@ def patient_visits_details(request, patient_name):
         visits = (
             Patient.objects
             .filter(name=patient_name)
-            .values('hospital__name', 'status', 'entry_datetime')
-            .annotate(last_visit=Max('entry_datetime'))
+            .values('hospital__name')
+            .annotate(last_visit=Max('entry_datetime'), final_status=F('status'))
         )
     except Patient.DoesNotExist:
         return Response({'error': 'Patient not found'}, status=404)
 
-    visits_details = []
+    z =[]
+    unique_hospitals = []
     for visit in visits:
         hospital_name = visit['hospital__name']
-        status = visit['status']
-        entry_datetime = visit['entry_datetime']
         last_visit = visit['last_visit']
+        final_status = visit['final_status']
 
-        visits_details.append({
+        unique_hospitals.append({
             'hospital_name': hospital_name,
-            'status': status,
-            'entry_datetime': entry_datetime,
             'last_visit': last_visit,
+            'final_status': final_status,
         })
 
-    return Response(visits_details)
+        z.append
+
+    return Response(unique_hospitals)
