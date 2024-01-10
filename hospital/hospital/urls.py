@@ -33,6 +33,4 @@ urlpatterns = [
     path('patients/', patient_list, name='patient_list'),
     path('patient/status/<str:patient_name>/', patient_status_by_name, name='patient_status_by_name'),
     path('patient/visits/details/<str:patient_name>/', patient_visits_details, name='patient_visits_details'),
-
-
 ]
