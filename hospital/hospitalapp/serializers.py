@@ -5,16 +5,13 @@ from .models import Hospital, Department, Patient
 class HospitalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hospital
-        fields=(
-            'name','address'
-        )
+        fields = '__all__'
 
 class DepartmentSerializer(serializers.ModelSerializer):
-    hospital_name = serializers.CharField(source='hospital.name', read_only=True)
 
     class Meta:
         model = Department
-        fields = ['name', 'hospital_name']
+        fields = '__all__'
 
 
 class StudentSerializer(serializers.ModelSerializer):

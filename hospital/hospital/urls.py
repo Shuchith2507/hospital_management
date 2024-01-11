@@ -17,20 +17,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from .views import TesView
-from .views import hospital_onboarding, department_management, hospital_list, department_list, create_patient, patient_list, patient_status_by_name, patient_visits_details
-
+# from .views import hospital_onboarding, department_management, hospital_list, department_list, create_patient, patient_list, patient_status_by_name, patient_visits_details
+from .views import (
+    HospitalViews,
+    DepartmentViews,
+    PatientViews,
+    PatientStatusByName,
+    PatientVisitsDetails,
+)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/',include('rest_framework.urls')),
     path('',TesView.as_view(),name='test'),
-    path('hospital/onboarding/', hospital_onboarding, name='hospital_onboarding'),
-    path('hospital/<str:hospital_name>/departments/', department_management, name='department_management'),
-    path('hospitals/', hospital_list, name='hospital_list'),
-    path('hospital/<str:hospital_name>/departments/list/', department_list, name='department_list'),
-    path('patient/create/', create_patient, name='create_patient'),
-    path('patients/', patient_list, name='patient_list'),
-    path('patient/status/<str:patient_name>/', patient_status_by_name, name='patient_status_by_name'),
-    path('patient/visits/details/<str:patient_name>/', patient_visits_details, name='patient_visits_details'),
+
+    path('hospital/', HospitalViews.as_view(), name='hospital_views'),
+    path('department/<str:hospital_name>/', DepartmentViews.as_view(), name='department_views'),
+    path('patient/', PatientViews.as_view(), name='patient_views'),
+    path('patient/status/<str:patient_name>/', PatientStatusByName.as_view(), name='patient_status_by_name'),
+    path('patient/visits/details/<str:patient_name>/', PatientVisitsDetails.as_view(), name='patient_visits_details'),
+
+
 ]
