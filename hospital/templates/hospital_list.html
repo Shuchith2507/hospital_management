@@ -1,0 +1,170 @@
+<!-- hospital_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #3498db;
+            text-align: center;
+        }
+
+        .hospital-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .hospital-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            transition: box-shadow 0.3s;
+        }
+
+        .hospital-card:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        p {
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .details-button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;  
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Form styling */
+        .form-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const newHospitalForm = document.getElementById('newHospitalForm');
+
+            newHospitalForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const formData = new FormData(newHospitalForm);
+                fetch('/hospitals/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken')  // Include Django CSRF token
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle success, you may update the DOM or redirect
+                        console.log('New hospital created:', data);
+                    })
+                    .catch(error => {
+                        // Handle error
+                        console.error('Error creating hospital:', error);
+                    });
+            });
+
+            // Function to get the CSRF token from cookies
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Hospital List</h1>
+        <ul class="hospital-list">
+            <!-- Hospital cards go here -->
+        </ul>
+    </div>
+
+    <!-- New Hospital Form -->
+    <div class="form-container">
+        <h2>Create a New Hospital</h2>
+        <form id="newHospitalForm">
+            <label for="name">Hospital Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="address">Hospital Address:</label>
+            <textarea id="address" name="address" required></textarea>
+
+            <button type="submit">Create Hospital</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from .models import Student
 from .models import Hospital, Department, Patient
 
 class HospitalSerializer(serializers.ModelSerializer):
@@ -14,11 +13,11 @@ class DepartmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class StudentSerializer(serializers.ModelSerializer):
+class PatientSerializer1(serializers.ModelSerializer):
     class Meta:
-        model=Student
+        model = Patient
         fields=(
-            'name','age'
+            'name','status'
         )
 
 class PatientSerializer(serializers.ModelSerializer):
