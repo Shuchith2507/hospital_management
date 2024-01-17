@@ -16,30 +16,33 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import (HospitalViews,DepartmentViews, PatientViews, PatientStatusByName, PatientVisitsDetails,)
+from .views import (HospitalViews,DepartmentViews, PatientViews, PatientStatusByName,MainView,DepartmentAdd, PatientVisits)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/',include('rest_framework.urls')),
-    path('hospital/', HospitalViews.as_view(), name='hospital_views'),
-    path('department/<str:hospital_name>/', DepartmentViews.as_view(), name='department_views'),
-    path('patient/', PatientViews.as_view(), name='patient_views'),
-    path('patient/status/<str:patient_name>/', PatientStatusByName.as_view(), name='patient_status_by_name'),
-    path('patient/visits/details/<str:patient_name>/', PatientVisitsDetails.as_view(), name='patient_visits_details'),
-
+    path('',include('authenticate.urls')),
+    path('home/', MainView.as_view(), name='main'),
+    path('hospital/', HospitalViews.as_view(), name='hospital-list'),
+    path('department/', DepartmentAdd.as_view(), name='department'),
+    path('departments/<str:hospital_name>/', DepartmentViews.as_view(), name='department-list'),
+    path('patient/', PatientViews.as_view(), name='patient-list'),
+    path('patient_status/<str:patient_name>/<str:ph_num>/', PatientStatusByName.as_view(), name='patient-status-by-name'),
+    path('patient_visits/<str:patient_name>/<str:ph_num>/', PatientVisits.as_view(), name='patient-visits-details'),
 ]
 
 
-# urls.py
-
-# from django.urls import path
-# from .views import HospitalViews, DepartmentViews, PatientViews, PatientStatusByName, PatientVisitsDetails
-
 # urlpatterns = [
-#     path('hospitals/', HospitalViews.as_view(), name='hospital_list'),
-#     path('departments/<str:hospital_name>/', DepartmentViews.as_view(), name='department_list'),
-#     path('patients/', PatientViews.as_view(), name='patient_list'),
-#     path('patients/<str:patient_name>/', PatientStatusByName.as_view(), name='patient_details'),
-#     path('patient-visits/<str:patient_name>/', PatientVisitsDetails.as_view(), name='patient_visits_details'),
+#     path('admin/', admin.site.urls),
+#     path('api-auth/',include('rest_framework.urls')),
+#     path('hospital/', HospitalViews.as_view(), name='hospital-list'),
+#     path('department/', DepartmentAdd.as_view(), name='department'),
+#     path('departments/<str:hospital_name>/', DepartmentViews.as_view(), name='department-list'),
+#     path('patient/', PatientViews.as_view(), name='patient-list'),
+#     path('patient_status/<str:patient_name>/<str:ph_num>/', PatientStatusByName.as_view(), name='patient-status-by-name'),
+#     path('patient_visits/<str:patient_name>/<str:ph_num>/', PatientVisits.as_view(), name='patient-visits-details'),
 # ]
+
+
+

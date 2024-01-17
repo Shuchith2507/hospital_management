@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Use the desired font family */
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        div {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            /* Use the same font family as body */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <!-- Include Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap">
+</head>
+
+<body>
+
+    <div class="container">
+        <div>
+            <h2>Hospitals</h2>
+            <a href="{% url 'hospital-list' %}"><button>View/Add</button></a>
+        </div>
+
+        <div>
+            <h2>Departments</h2>
+            <a href="{% url 'department' %}"><button>View/Add</button></a>
+        </div>
+
+        <div>
+            <h2>Departments of each Hospital</h2>
+            {% for hospital in hospitals %}
+            <a href="{% url 'department-list' hospital.name %}"><button>{{ hospital.name }}</button></a>
+            {% endfor %}
+        </div>
+
+        <div>
+            <h2>Patients</h2>
+            <a href="{% url 'patient-list' %}"><button>View/Add</button></a>
+        </div>
+
+        <div>
+            <h2>Patients Status</h2>
+            {% for patient in patients %}
+            <a href="{% url 'patient-status-by-name' patient.name patient.ph_num %}"><button>{{ patient.name }}</button></a>
+            {% endfor %}
+        </div>
+
+        <div>
+            <h2>Patients Visits</h2>
+            {% for patient in patients %}
+            <a href="{% url 'patient-visits-details' patient.name patient.ph_num %}"><button>{{ patient.name }}</button></a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

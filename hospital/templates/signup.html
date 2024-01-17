@@ -1,0 +1,141 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'assets/images/favicon.png' %}" rel="icon" type="image/png">
+    <title>Sign Up</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        #wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .login-link {
+            background-color: #ff69b4;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .login-link:hover {
+            background-color: #ff1493;
+        }
+
+        /* Content Styles */
+        .content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.375rem;
+            margin-top: 2rem;
+        }
+
+        .form-input {
+            background-color: #edf2f7;
+            margin-bottom: 1rem;
+            border: 1px solid #d3d5d8;
+            padding: 0.75rem;
+            width: 100%;
+            font-size: 1rem;
+            border-radius: 0.375rem;
+        }
+
+        .sign-up-button {
+            background: linear-gradient(to bottom right, #ff69b4, #ff0000);
+            padding: 1rem;
+            border-radius: 0.375rem;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .sign-up-button:hover {
+            background: linear-gradient(to bottom right, #ff1493, #dc143c);
+        }
+
+        .login-link-bottom {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .login-link-bottom a {
+            color: #ff69b4;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link-bottom a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+
+    <div id="wrapper" class="flex flex-col justify-between">
+
+        <!-- Header -->
+        <div class="header">
+            <a href="/" class="login-link">Login</a>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h1 class="text-3xl font-semibold mb-6">Sign up</h1>
+            <div>
+                {% for message in messages %}
+                <p class="error-message">{{message}}</p>
+                {% endfor %}
+            </div>
+            <form action="signup" method="POST">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username" class="form-input">
+                <input type="email" name="email" placeholder="Email" class="form-input">
+                <input type="password" name="password" placeholder="Password" class="form-input">
+                <button type="submit" class="sign-up-button">Sign Up</button>
+                <div class="login-link-bottom">
+                    <p>Already have an account? <a href="/" class="login-link">Login</a></p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

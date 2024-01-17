@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Departments</title>
+    <title>Patient Status</title>
 
     <style>
         body {
@@ -18,40 +18,25 @@
             color: #333;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            padding: 10px;
-        }
-
         p {
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 5px;
             padding: 10px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>Departments for {{ hospital_name }}</h1>
+    <h1>Patient Status for {{ patient_name }}</h1>
 
-    {% if departments %}
-    <ul>
-        {% for department in departments %}
-        <li>{{ department.name }}</li>
-        {% endfor %}
-    </ul>
+    {% if patient %}
+    <p>Name: {{ patient.name }}</p>
+    <p>Status: {{ patient.status }}</p>
     {% else %}
-    <p>No departments available for this hospital.</p>
+    <p>Patient not found.</p>
     {% endif %}
 
 </body>

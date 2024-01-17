@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Departments</title>
+    <title>Patient Visits Details</title>
 
     <style>
         body {
@@ -18,40 +18,37 @@
             color: #333;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            padding: 10px;
-        }
-
         p {
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 5px;
             padding: 10px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>Departments for {{ hospital_name }}</h1>
+    <h1>Visit Details for {{ patient_name }}</h1>
 
-    {% if departments %}
-    <ul>
-        {% for department in departments %}
-        <li>{{ department.name }}</li>
+    {% if visits %}
+    <table border="1">
+        <tr>
+            <th>Hospital Name</th>
+            <th>Last Visit</th>
+            <th>Status</th>
+        </tr>
+        {% for visit in visits %}
+        <tr>
+            <td>{{ visit.hospital.name }}</td>
+            <td>{{ visit.date_time }}</td>
+            <td>{{ visit.patient.status }}</td>
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
     {% else %}
-    <p>No departments available for this hospital.</p>
+    <p>No visits available for this patient.</p>
     {% endif %}
 
 </body>
