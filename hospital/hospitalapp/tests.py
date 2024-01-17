@@ -28,6 +28,11 @@ class PatientModelTest(TestCase):
         self.assertEqual(patient.ph_num, '1234567890')
         self.assertIsNotNone(patient.entry_datetime)
 
+    def test_unique_phone_number(self):
+        Patient.objects.create(**self.patient_data) 
+        with self.assertRaises(Exception):
+            Patient.objects.create(**self.patient_data)
+
     def test_gender_choices(self):
         import random
 
@@ -41,7 +46,4 @@ class PatientModelTest(TestCase):
         patient = Patient.objects.create(name='Test', gender='M', dob=date(2000, 1, 1), hospital=self.hospital, doctor_name='Dr. Test', status='PC', ph_num='1234567821')
         self.assertEqual(patient.gender, random_gender[0])
 
-    def test_unique_phone_number(self):
-        Patient.objects.create(**self.patient_data) 
-        with self.assertRaises(Exception):
-            Patient.objects.create(**self.patient_data)
+
