@@ -45,13 +45,3 @@ class PatientModelTest(TestCase):
         Patient.objects.create(**self.patient_data) 
         with self.assertRaises(Exception):
             Patient.objects.create(**self.patient_data)
-
-    # def test_patient_creation_status_code(self):
-    #     url = reverse('patient_views')  # Change 'patient_create' to your actual URL name
-    #     print(url)
-    #     response = self.client.post(url, data=self.patient_data)
-    #     print(response)
-    #     self.assertEqual(response.status_code, 400)
-            
-    def tearDown(self):
-        pass
