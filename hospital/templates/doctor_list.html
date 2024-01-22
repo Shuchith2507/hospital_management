@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient List</title>
+    <title>Hospital List</title>
 
     <style>
         body {
@@ -33,14 +33,6 @@
             justify-content: space-between;
         }
 
-        p {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            margin-top: 20px;
-        }
-
         form {
             background-color: #fff;
             border: 1px solid #ddd;
@@ -55,11 +47,9 @@
         }
 
         input,
-        select,
         button {
             padding: 10px;
             margin-bottom: 10px;
-            width: 100%;
         }
 
         button {
@@ -78,42 +68,43 @@
 
 <body>
 
-    <h1>Patient List</h1>
+    <h1>Doctor List</h1>
 
-    {% if patients %}
+    {% if doctors %}
     <ul>
-        {% for patient in patients %}
-        <li>{{ patient.name }} - {{ patient.ph_num }} </li>
+        {% for doctor in doctors %}
+        <li>{{ doctor.name }} - {{ doctor.department.name }}</li>
         {% endfor %}
     </ul>
     {% else %}
-    <p>No patients available.</p>
+    <p>No doctors available.</p>
     {% endif %}
+
 
     <div class="pagination">
         <span class="step-links">
-            {% if patients.has_previous %}
+            {% if doctors.has_previous %}
             <a href="?page=1">&laquo; first </a>
 
-            <a href="?page={{ patients.previous_page_number }}"> previous</a>
+            <a href="?page={{ doctors.previous_page_number }}"> previous</a>
             {% endif %}
 
             <span class="current">
-                Page {{ patients.number }} of {{ patients.paginator.num_pages }}.
+                Page {{ doctors.number }} of {{ doctors.paginator.num_pages }}.
             </span>
 
-            {% if patients.has_next %}
-            <a href="?page={{ patients.next_page_number }}">next </a>
-            <a href="?page={{ patients.paginator.num_pages }}"> last &raquo;</a>
+            {% if doctors.has_next %}
+            <a href="?page={{ doctors.next_page_number }}">next </a>
+            <a href="?page={{ doctors.paginator.num_pages }}"> last &raquo;</a>
             {% endif %}
         </span>
     </div>
 
-    <h2>Add/Update Patient</h2>
-    <form method="post" action="{% url 'patient-list' %}">
+    <h2>Add Doctor</h2>
+    <form method="post" action="{% url 'doctor-list' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Add/Update Patient</button>
+        <button type="submit">Add Doctor</button>
     </form>
 
 </body>

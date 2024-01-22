@@ -30,11 +30,11 @@
 
 <body>
 
-    <h1>Patient Status for {{ patient_name }}</h1>
+    <h1>Patient Status for {{ patients.patient.name }}</h1>
 
-    {% if patient %}
-    <p>Name: {{ patient.name }}</p>
-    <p>Status: {{ patient.status }}</p>
+    {% if patients %}
+    <p>Name: {{ patients.patient.name }}</p>
+    <p>Status: {{ patients.status }}</p>
     {% else %}
     <p>Patient not found.</p>
     {% endif %}

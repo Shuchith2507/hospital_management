@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import (HospitalViews,DepartmentViews, PatientViews, PatientStatusByName,MainView,DepartmentAdd, PatientVisits)
+from .views import (HospitalViews,DepartmentViews, PatientViews, PatientStatusByName,MainView,DepartmentAdd, PatientVisits, DoctorViews, AppointmentViews)
 
 
 urlpatterns = [
@@ -30,6 +30,8 @@ urlpatterns = [
     path('patient/', PatientViews.as_view(), name='patient-list'),
     path('patient_status/<str:patient_name>/<str:ph_num>/', PatientStatusByName.as_view(), name='patient-status-by-name'),
     path('patient_visits/<str:patient_name>/<str:ph_num>/', PatientVisits.as_view(), name='patient-visits-details'),
+    path('doctor/',DoctorViews.as_view(),name='doctor-list'),
+    path('appointment/',AppointmentViews.as_view(),name='appointment-list')
 ]
 
 

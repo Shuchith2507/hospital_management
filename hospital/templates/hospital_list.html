@@ -80,6 +80,26 @@
     <p>No hospitals available.</p>
     {% endif %}
 
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if hospitals.has_previous %}
+            <a href="?page=1">&laquo; first </a>
+
+            <a href="?page={{ hospitals.previous_page_number }}"> previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ hospitals.number }} of {{ hospitals.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ hospitals.next_page_number }}">next </a>
+            <a href="?page={{ hospitals.paginator.num_pages }}"> last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
     <h2>Add Hospital</h2>
     <form method="post" action="{% url 'hospital-list' %}">
         {% csrf_token %}

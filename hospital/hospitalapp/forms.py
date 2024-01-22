@@ -1,5 +1,5 @@
 from django import forms
-from .models import Hospital,Patient, Department
+from .models import Hospital,Patient, Department, Doctor, Appointment
 
 class HospitalForm(forms.ModelForm):
     class Meta:
@@ -14,4 +14,19 @@ class PatientForm(forms.ModelForm):
 class DepartmentForm(forms.ModelForm):
     class Meta:
         model = Department
+        fields = '__all__'
+
+class DoctorForm(forms.ModelForm):
+    class Meta:
+        model = Doctor
+        fields = '__all__'
+
+class AppointmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = '__all__'
+
+class AppointmentForm1(forms.ModelForm):
+    class Meta:
+        model = Appointment
         fields = '__all__'

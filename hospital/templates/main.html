@@ -73,21 +73,31 @@
         </div>
 
         <div>
+            <h2>Doctors</h2>
+            <a href="{% url 'doctor-list' %}"><button>View/Add</button></a>
+        </div>
+
+        <div>
             <h2>Patients</h2>
             <a href="{% url 'patient-list' %}"><button>View/Add</button></a>
         </div>
 
         <div>
+            <h2>Appointment List</h2>
+            <a href="{% url 'appointment-list' %}"><button>View/Add</button></a>
+        </div>
+
+        <div>
             <h2>Patients Status</h2>
             {% for patient in patients %}
-            <a href="{% url 'patient-status-by-name' patient.name patient.ph_num %}"><button>{{ patient.name }}</button></a>
+            <a href="{% url 'patient-status-by-name' patient.name patient.ph_num %}"><button>{{ patient.name}}</button></a>
             {% endfor %}
         </div>
 
         <div>
             <h2>Patients Visits</h2>
             {% for patient in patients %}
-            <a href="{% url 'patient-visits-details' patient.name patient.ph_num %}"><button>{{ patient.name }}</button></a>
+            <a href="{% url 'patient-visits-details' patient.name patient.ph_num %}"><button>{{ patient.name}}</button></a>
             {% endfor %}
         </div>
     </div>

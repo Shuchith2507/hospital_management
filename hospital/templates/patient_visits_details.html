@@ -32,24 +32,45 @@
 
     <h1>Visit Details for {{ patient_name }}</h1>
 
-    {% if visits %}
+    {% if patient_visits %}
     <table border="1">
         <tr>
             <th>Hospital Name</th>
-            <th>Last Visit</th>
+            <th>Doctor Name</th>
+            <th>Date/Time</th>
             <th>Status</th>
         </tr>
-        {% for visit in visits %}
+        {% for visit in patient_visits %}
         <tr>
             <td>{{ visit.hospital.name }}</td>
+            <td>{{ visit.doctor.name }}</td>
             <td>{{ visit.date_time }}</td>
-            <td>{{ visit.patient.status }}</td>
+            <td>{{ visit.status }}</td>
         </tr>
         {% endfor %}
     </table>
     {% else %}
     <p>No visits available for this patient.</p>
     {% endif %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if patient_visits.has_previous %}
+            <a href="?page=1">&laquo; first </a>
+
+            <a href="?page={{ patient_visits.previous_page_number }}"> previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ patient_visits.number }} of {{ patient_visits.paginator.num_pages }}.
+            </span>
+
+            {% if patient_visits.has_next %}
+            <a href="?page={{ patient_visits.next_page_number }}">next </a>
+            <a href="?page={{ patient_visits.paginator.num_pages }}"> last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 
 </body>
 
